@@ -134,14 +134,17 @@ class FillaPix:
 
   def solve_step_2(self):
     alku = time.time()
-    for i in range(1,10):
+    for i in range(1,9):
       self.numbers_todo.extend(self.numbers[i])
     # print(self.numbers_todo)
     
     togo = True
+    round = 1
     while togo == True:
+      
       numbers_todo_round2 = self.numbers_todo.copy()
       togo = False
+      print(f"kierros {round} numeroita {len(self.numbers_todo)}")
       # print(len(self.numbers_todo))
       for i in range(0,len(self.numbers_todo)):
         num = self.numbers_todo[i]
@@ -162,16 +165,6 @@ class FillaPix:
           for box in boxes:
             if box.value == None:
               box.value = 0
-            if box.number != None:
-              if box.number.x == num.x and box.number.y == num.y: # oma numero lisataan tehtyjen listaan
-                self.number_completed[box.value].append(box.number)
-              else:
-                if box.number in self.number_completed[box.value]:
-                  pass
-                else:
-                  pass
-                  # print(box.number.x,box.number.y,box.number.n) # numerot jotka box ymarilla
-                  # self.numbers_todo.append(box.number) # lisataan todo jonoon
           numbers_todo_round2.remove(num)
           togo = True 
 
@@ -180,16 +173,6 @@ class FillaPix:
           for box in boxes:
             if box.value == None:
               box.value = 1
-            if box.number != None: # numerot ympärillä
-              if box.number.x == num.x and box.number.y == num.y: # oma numero lisataan tehtyjen listaan
-                self.number_completed[box.value].append(box.number)
-              else:
-                if box.number in self.number_completed[box.value]:
-                  pass
-                else:
-                  pass
-                  # print(box.number.x,box.number.y,box.number.n) # numerot jotka box ymarilla
-                  # self.numbers_todo.append(box.number) # lisataan todo jonoon
           numbers_todo_round2.remove(num)
           togo = True      
 
@@ -198,20 +181,11 @@ class FillaPix:
           for box in boxes:
             if box.value == None:
               box.value = 1
-            if box.number != None: # numerot ympärillä
-              if box.number.x == num.x and box.number.y == num.y: # oma numero lisataan tehtyjen listaan
-                self.number_completed[box.value].append(box.number)
-              else:
-                if box.number in self.number_completed[box.value]:
-                  pass
-                else:
-                  pass
-                  # print(box.number.x,box.number.y,box.number.n) # numerot jotka box ymarilla
-                  # self.numbers_todo.append(box.number) # lisataan todo jonoon
           numbers_todo_round2.remove(num)
           togo = True 
       # print(len(self.numbers_todo))
       self.numbers_todo = numbers_todo_round2.copy()
+      round += 1
 
     loppu = time.time()
     print(f"vaihe 2 kului aikaa {loppu-alku}")
@@ -327,10 +301,10 @@ peli2 = FillaPix(60,100,[';;;;0;;0;;;;;;4;;;;0;;;;;5;4;;0;;0;;;;;3;4;;;0;;0;;;;;
 ';9;;;;;;;0;;;;;6;;;5;;;5;;;8;9;;;9;;;;;;;;;;;;2;1;;;;;4;;;4;;;2;;;2;;;;;;7;;6;;;;;;6;6;;;;;;6;;;;;;;;;6;;;9;;;;;;;;;;;9;;',
 ';;9;;7;;;;;;;;;;6;;6;;;;;;;;;;;;;3;;;;0;;;;;;;;5;;;;4;;;;;;;;;;;;9;;;;;;6;;;8;9;;9;8;;;6;;6;;;6;;6;;;9;;;;;;;;;;;;;;;;6',
 ';6;;;;6;5;;;2;;0;;;;;6;;4;;;4;5;5;;;3;;;;;;0;;;0;;2;;;4;5;5;;;;;0;;;2;3;;;6;;;;;;4;;;5;6;;;;;;6;;;6;;;6;;;6;;6;;;;6;;6;;6;;6;;6;;;6;;;'])
-peli2.print_table()
+# peli2.print_table()
 peli2.solve_step_1()
 print('vaihe 1')
-peli2.print_table()
+# peli2.print_table()
 peli2.solve_step_2()
 print('vaihe 2')
 peli2.print_table()
