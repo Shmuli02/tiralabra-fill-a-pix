@@ -161,7 +161,7 @@ class FillaPix:
         if sum_black == num.n: # mustia oikea maara
           # print(sum_black,sum_white,num.n,num.x,num.y)
           for box in boxes:
-            if box.value == None:
+            if box.value is None:
               box.value = 0
           numbers_todo_round2.remove(num)
           togo = True
@@ -169,7 +169,7 @@ class FillaPix:
         elif sum_white == (len(boxes)-int(num.n)+sum_black): # valkoisia oikea maara
           # print(sum_black,sum_white,num.n,num.x,num.y)
           for box in boxes:
-            if box.value == None:
+            if box.value is None:
               box.value = 1
           numbers_todo_round2.remove(num)
           togo = True
@@ -177,7 +177,7 @@ class FillaPix:
         elif num.n == (len(boxes)-sum_white):
           # print(sum_black,sum_white,num.n,num.x,num.y)
           for box in boxes:
-            if box.value == None:
+            if box.value is None:
               box.value = 1
           numbers_todo_round2.remove(num)
           togo = True
@@ -214,22 +214,21 @@ class Number(FillaPix):
 
 
 if __name__ == "__main__":
-  peli = FillaPix(15,15,
-['0;;;4;3;2;1;;;;;;3;;',
-';;5;;;4;;;4;4;;;;;3',
-';5;4;5;4;5;5;;5;3;;1;2;;3',
-'4;;;;4;;;4;2;;1;;;;',
-';;5;4;;2;2;;1;0;;;7;5;',
-';;;5;;;0;;;;;4;5;;2',
-'4;;;5;4;2;0;0;;;;5;6;;',
-'5;;;6;5;;;;;;3;3;3;;3',
-';;5;;5;3;;;;;;;3;;',
-'5;;;6;5;;3;5;;6;;;0;;0',
-';;5;;4;3;2;4;5;;4;;;1;',
-';7;;;5;;;1;;5;5;5;;;',
-';;6;4;4;4;3;1;2;4;;;6;4;',
-';5;;6;;;;;;4;6;;;;',
-';;;;;;3;2;0;;4;4;3;;2'])
+  peli = FillaPix(15,15,['0;;;4;3;2;1;;;;;;3;;',
+  ';;5;;;4;;;4;4;;;;;3',
+  ';5;4;5;4;5;5;;5;3;;1;2;;3',
+  '4;;;;4;;;4;2;;1;;;;',
+  ';;5;4;;2;2;;1;0;;;7;5;',
+  ';;;5;;;0;;;;;4;5;;2',
+  '4;;;5;4;2;0;0;;;;5;6;;',
+  '5;;;6;5;;;;;;3;3;3;;3',
+  ';;5;;5;3;;;;;;;3;;',
+  '5;;;6;5;;3;5;;6;;;0;;0',
+  ';;5;;4;3;2;4;5;;4;;;1;',
+  ';7;;;5;;;1;;5;5;5;;;',
+  ';;6;4;4;4;3;1;2;4;;;6;4;',
+  ';5;;6;;;;;;4;6;;;;',
+  ';;;;;;3;2;0;;4;4;3;;2'])
   peli.make_boxes()
   peli.make_numbers()
   peli.print_table()
@@ -239,5 +238,3 @@ if __name__ == "__main__":
   peli.solve_step_2()
   print('vaihe 2')
   peli.print_table()
-
-

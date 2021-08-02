@@ -19,7 +19,7 @@ class TestFillapix(unittest.TestCase):
 ';;6;4;4;4;3;1;2;4;;;6;4;',
 ';5;;6;;;;;;4;6;;;;',
 ';;;;;;3;2;0;;4;4;3;;2'])
-  
+
   def test_make_boxes(self):
     self.peli.make_boxes()
     self.assertEqual(len(self.peli.boxes),15)
@@ -58,7 +58,7 @@ class TestFillapix(unittest.TestCase):
       [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
       [None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None],
       [None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None]])
-  
+
   def test_solve_step_2(self):
     self.peli.make_boxes()
     self.peli.make_numbers()
@@ -86,3 +86,4 @@ class TestFillapix(unittest.TestCase):
       [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0],
       [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0],
       [0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]])
+      
