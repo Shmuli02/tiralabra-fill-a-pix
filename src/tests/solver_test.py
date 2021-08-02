@@ -23,3 +23,66 @@ class TestFillapix(unittest.TestCase):
   def test_make_boxes(self):
     self.peli.make_boxes()
     self.assertEqual(len(self.peli.boxes),15)
+
+  def test_make_numbers(self):
+    self.peli.make_boxes()
+    self.peli.make_numbers()
+    numbers = []
+    for i in range(0,10):
+      numbers.append(len(self.peli.numbers[i]))
+    self.assertEqual(numbers,[8,7,11,16,24,26,8,2,0,0])
+
+  def test_solve_step_1(self):
+    self.peli.make_boxes()
+    self.peli.make_numbers()
+    self.peli.solve_step_1()
+    result = []
+    for i in self.peli.boxes:
+      row = []
+      for j in i:
+        row.append(j.value)
+      result.append(row)
+    self.assertEqual(result,[
+      [0, 0, None, None, None, None, None, None, None, None, None, None, None, None, None],
+      [0, 0, None, None, None, None, None, None, None, None, None, None, None, None, None],
+      [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+      [None, None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None],
+      [None, None, None, None, None, 0, 0, 0, 0, 0, 0, None, None, None, None],
+      [None, None, None, None, None, 0, 0, 0, 0, 0, 0, None, None, None, None],
+      [None, None, None, None, None, 0, 0, 0, 0, None, None, None, None, None, None],
+      [None, None, None, None, None, 0, 0, 0, 0, None, None, None, None, None, None],
+      [None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0],
+      [None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0],
+      [None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0],
+      [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+      [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+      [None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None],
+      [None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None]])
+  
+  def test_solve_step_2(self):
+    self.peli.make_boxes()
+    self.peli.make_numbers()
+    self.peli.solve_step_1()
+    self.peli.solve_step_2()
+    result = []
+    for i in self.peli.boxes:
+      row = []
+      for j in i:
+        row.append(j.value)
+      result.append(row)
+    self.assertEqual(result,[
+      [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
+      [1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0],
+      [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+      [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+      [1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0],
+      [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0],
+      [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0],
+      [0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]])
