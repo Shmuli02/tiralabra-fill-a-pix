@@ -6,8 +6,8 @@ class FillaPix:
     self.ysize = ysize
     self.table = table
     self.number_completed = {}
-    self.boxes = self.make_boxes()
-    self.numbers = self.make_numbers()
+    self.boxes = []
+    self.numbers = {}
     self.numbers_todo = []
 
   def make_boxes(self):
@@ -21,7 +21,8 @@ class FillaPix:
     loppu = time.time()
     print(f"latikoiden tekemiseen kului aikaa {loppu-alku}")
     # print(lista)
-    return lista
+    self.boxes = lista
+    # return lista
 
   def make_numbers(self):
     alku = time.time()
@@ -106,7 +107,8 @@ class FillaPix:
           self.boxes[x][y].set_number(new_number) # merkataan numero oikeaan Box objektiin
     loppu = time.time()
     print(f"numeroiden tekemiseen kului aikaa {loppu-alku}")
-    return all_numbers
+    self.numbers = all_numbers
+    # return all_numbers
 
   def print_table(self):
     out = []
@@ -148,7 +150,7 @@ class FillaPix:
         boxes = num.number_boxes
         sum_black = 0
         sum_white = 0
-        
+
         for box in boxes:
           if box.value == 1:
             sum_black += 1
@@ -189,7 +191,7 @@ class FillaPix:
 
 
 
-      
+
 
 class Box(FillaPix):
   def __init__(self,x,y):
@@ -228,13 +230,15 @@ if __name__ == "__main__":
 ';;6;4;4;4;3;1;2;4;;;6;4;',
 ';5;;6;;;;;;4;6;;;;',
 ';;;;;;3;2;0;;4;4;3;;2'])
-peli.print_table()
-peli.solve_step_1()
-print('vaihe 1')
-peli.print_table()
-peli.solve_step_2()
-print('vaihe 2')
-peli.print_table()
+  peli.make_boxes()
+  peli.make_numbers()
+  peli.print_table()
+  peli.solve_step_1()
+  print('vaihe 1')
+  peli.print_table()
+  peli.solve_step_2()
+  print('vaihe 2')
+  peli.print_table()
 
 
 peli2 = FillaPix(60,100,[';;;;0;;0;;;;;;4;;;;0;;;;;5;4;;0;;0;;;;;3;4;;;0;;0;;;;;5;;;;;;;6;;5;;;5;6;;;;;;5;;;;;;;0;;;0;;0;;;;;;;;;;;;5;;;;;;;;;;;;;;',
@@ -297,6 +301,8 @@ peli2 = FillaPix(60,100,[';;;;0;;0;;;;;;4;;;;0;;;;;5;4;;0;;0;;;;;3;4;;;0;;0;;;;;
 ';9;;;;;;;0;;;;;6;;;5;;;5;;;8;9;;;9;;;;;;;;;;;;2;1;;;;;4;;;4;;;2;;;2;;;;;;7;;6;;;;;;6;6;;;;;;6;;;;;;;;;6;;;9;;;;;;;;;;;9;;',
 ';;9;;7;;;;;;;;;;6;;6;;;;;;;;;;;;;3;;;;0;;;;;;;;5;;;;4;;;;;;;;;;;;9;;;;;;6;;;8;9;;9;8;;;6;;6;;;6;;6;;;9;;;;;;;;;;;;;;;;6',
 ';6;;;;6;5;;;2;;0;;;;;6;;4;;;4;5;5;;;3;;;;;;0;;;0;;2;;;4;5;5;;;;;0;;;2;3;;;6;;;;;;4;;;5;6;;;;;;6;;;6;;;6;;;6;;6;;;;6;;6;;6;;6;;6;;;6;;;'])
+peli2.make_boxes()
+peli2.make_numbers()
 # peli2.print_table()
 peli2.solve_step_1()
 print('vaihe 1')
