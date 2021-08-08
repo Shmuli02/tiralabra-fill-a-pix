@@ -3,3 +3,4 @@
 /src/__pycache__
 /src/tests/__pycache__
 /htmlcov
+__pycache__/
