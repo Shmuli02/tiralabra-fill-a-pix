@@ -27,9 +27,9 @@ class FillaPix:
   def make_numbers(self):
     alku = time.time()
     all_numbers = {}
-    for i in range(0,10):
-      all_numbers[i] = []
-      self.number_completed[i] = []
+    for num in range(0,10):
+      all_numbers[num] = []
+      self.number_completed[num] = []
     for x in range(len(self.table)):
       y = 0
       for a in self.table[x]:
