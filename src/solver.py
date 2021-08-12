@@ -20,9 +20,7 @@ class FillaPix:
       lista.append(lista2)
     loppu = time.time()
     print(f"latikoiden tekemiseen kului aikaa {loppu-alku}")
-    # print(lista)
     self.boxes = lista
-    # return lista
 
   def make_numbers(self):
     alku = time.time()
@@ -105,6 +103,8 @@ class FillaPix:
           new_number = Number(x,y,a,boxes) # uusi numero
           all_numbers[int(a)].append(new_number) # uusi numero numerot listaan
           self.boxes[x][y].set_number(new_number) # merkataan numero oikeaan Box objektiin
+          for box in boxes:
+            box.add_number_around(new_number)
     loppu = time.time()
     print(f"numeroiden tekemiseen kului aikaa {loppu-alku}")
     self.numbers = all_numbers
@@ -187,10 +187,54 @@ class FillaPix:
 
     loppu = time.time()
     print(f"vaihe 2 kului aikaa {loppu-alku}")
+    self.table_ready()
 
 
+  def solve_step_3(self):
+    pass
 
+  def table_ready(self):
+    if len(self.numbers_todo) == 0:
+      print('ratkaisu valmis')
+    else:
+      print('ratkaisu kesken') 
 
+  def check_table(self):
+    errors = []
+    for i in self.boxes:
+      for j in i:
+        test = self.check_box(j)
+        if test is not True:
+          errors.extend(test)
+    if len(errors) == 0:
+      print('Kaikki kunnossa')
+    else:
+      print('Taulussa ongelma')
+    for error in errors:
+      print(f"numero {error.n} paikassa {error.x} x ja {error.y} y")
+
+  def check_box(self,box):
+    numbers_around = box.numbers_around
+    result = True
+    problem_numbers = []
+    for number in numbers_around:
+      black = 0
+      white = 0
+      for num_box in number.number_boxes:
+        if num_box.value == 1:
+          black += 1
+        elif num_box.value == 0:
+          white += 1
+      if black > number.n:
+        result =  False
+        problem_numbers.append(number)
+      elif white > (len(number.number_boxes)-black):
+        result =  False
+        problem_numbers.append(number)
+    if result is True:
+      return True
+    else:
+      return problem_numbers
 
 
 class Box(FillaPix):
@@ -199,9 +243,16 @@ class Box(FillaPix):
     self.y = y
     self.value = None
     self.number = None
+    self.numbers_around = []
+    
+
 
   def set_number(self,number):
     self.number = number
+  
+  def add_number_around(self,number):
+    self.numbers_around.append(number)
+  
 
 class Number(FillaPix):
   def __init__(self,x,y,n,boxes):
@@ -238,3 +289,4 @@ if __name__ == "__main__":
   peli.solve_step_2()
   print('vaihe 2')
   peli.print_table()
+  peli.check_table()
