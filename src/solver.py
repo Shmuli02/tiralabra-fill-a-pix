@@ -1,4 +1,5 @@
 import time
+import sys
 
 class FillaPix:
   def __init__(self,xsize,ysize,table):
@@ -107,6 +108,7 @@ class FillaPix:
             box.add_number_around(new_number)
     loppu = time.time()
     print(f"numeroiden tekemiseen kului aikaa {loppu-alku}")
+    
     self.numbers = all_numbers
     # return all_numbers
 
@@ -190,14 +192,15 @@ class FillaPix:
     self.table_ready()
 
 
-  def solve_step_3(self):
-    pass
+
 
   def table_ready(self):
     if len(self.numbers_todo) == 0:
       print('ratkaisu valmis')
+      return True
     else:
-      print('ratkaisu kesken') 
+      print('ratkaisu kesken')
+      return False
 
   def check_table(self):
     errors = []
@@ -236,6 +239,12 @@ class FillaPix:
     else:
       return problem_numbers
 
+  def solve_step_3(self,table):
+    if table == 0:
+      return table
+    else:
+      pass
+
 
 class Box(FillaPix):
   def __init__(self,x,y):
@@ -244,8 +253,6 @@ class Box(FillaPix):
     self.value = None
     self.number = None
     self.numbers_around = []
-    
-
 
   def set_number(self,number):
     self.number = number
