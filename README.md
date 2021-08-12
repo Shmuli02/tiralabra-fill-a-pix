@@ -1,6 +1,7 @@
 # tiralabra-fill-a-pix
 
 [![CI](https://github.com/Shmuli02/tiralabra-fill-a-pix/actions/workflows/main.yml/badge.svg)](https://github.com/Shmuli02/tiralabra-fill-a-pix/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/Shmuli02/tiralabra-fill-a-pix/branch/main/graph/badge.svg?token=Y955U358L4)](https://codecov.io/gh/Shmuli02/tiralabra-fill-a-pix)
 
 ## Dokumentaatio
 - [Määrittelydokumentaatio](dokumentaatio/maarittelydokumentti.md)
