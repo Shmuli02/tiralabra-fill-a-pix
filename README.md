@@ -10,3 +10,7 @@
 - [Viikkoraportti_1](dokumentaatio/viikkoraportit/viikkoraportti-1.md)
 - [Viikkoraportti_2](dokumentaatio/viikkoraportit/viikkoraportti-2.md)
 - [Viikkoraportti_3](dokumentaatio/viikkoraportit/viikkoraportti-3.md)
+- [Viikkoraportti_4](dokumentaatio/viikkoraportit/viikkoraportti-4.md)
+
+## Työaikakirjanpito
+- [Työaikakirjanpito](dokumentaatio/työaikakirjanpito.md)
