@@ -141,16 +141,17 @@ class FillaPix:
     self.number_completed[9] = self.number_completed[9] + self.numbers[9]
     # for i in range(1,9):
     #   self.numbers_todo.extend(self.numbers[i])
-    self.numbers_todo_main.extend(self.numbers[8])
-    
     self.numbers_todo_main.extend(self.numbers[1])
-    self.numbers_todo_main.extend(self.numbers[7])
+    self.numbers_todo_main.extend(self.numbers[8])
     self.numbers_todo_main.extend(self.numbers[2])
-    self.numbers_todo_main.extend(self.numbers[6])
     self.numbers_todo_main.extend(self.numbers[3])
     self.numbers_todo_main.extend(self.numbers[4])
     self.numbers_todo_main.extend(self.numbers[5])
-    # self.numbers_todo_main = sorted(self.numbers_todo, key=lambda x: x.x)
+    self.numbers_todo_main.extend(self.numbers[6])
+    self.numbers_todo_main.extend(self.numbers[7])
+    
+    self.numbers_todo = self.numbers_todo_main
+    self.numbers_todo_main = sorted(self.numbers_todo_main, key=lambda x: x.x)
 
 
 
@@ -168,6 +169,7 @@ class FillaPix:
 
       numbers_todo_round2 = self.numbers_todo.copy()
       togo = False
+      remove_todo2 = []
       # print(f"kierros {round} numeroita {len(self.numbers_todo)}")
       # print(len(self.numbers_todo))
       for i in range(0,len(self.numbers_todo)):
@@ -188,7 +190,7 @@ class FillaPix:
             if box.value is None:
               box.value = 0
               togo = True
-          numbers_todo_round2.remove(num)
+          remove_todo2.append(i)
           
 
         elif sum_white == (len(boxes)-int(num.n)+sum_black): # valkoisia oikea maara
@@ -197,7 +199,7 @@ class FillaPix:
             if box.value is None:
               box.value = 1
               togo = True
-          numbers_todo_round2.remove(num)
+          remove_todo2.append(i)
           
 
         elif num.n == (len(boxes)-sum_white):
@@ -206,9 +208,11 @@ class FillaPix:
             if box.value is None:
               box.value = 1
               togo = True
-          numbers_todo_round2.remove(num)
+          remove_todo2.append(i)
           
       # print(len(self.numbers_todo))
+      for i in range(0,len(remove_todo2)):
+        numbers_todo_round2.pop(remove_todo2[i]-i)
       self.numbers_todo = numbers_todo_round2.copy()
       round += 1
 
@@ -233,7 +237,8 @@ class FillaPix:
       for j in i:
         test = self.check_box(j)
         if test is not True:
-          errors.extend(test)
+          errors.append(test)
+          return False
     if len(errors) == 0:
       # print('Kaikki kunnossa')
       return True
@@ -255,13 +260,14 @@ class FillaPix:
           black += 1
         elif num_box.value == 0:
           white += 1
-      # print(f"laatikon arvo {box.value} {box.x}-x {box.y}-y tarkistus. Laatikon arvo {number.n} valkoisia {white} ja mustia {black}")
       if black > number.n:
         result =  False
         problem_numbers.append(number)
+        return False
       elif white > (len(number.number_boxes)-black):
         result =  False
         problem_numbers.append(number)
+        return False
     if result is True:
       return True
     else:
@@ -280,62 +286,43 @@ class FillaPix:
       snapshot.append(line)
     return snapshot
 
-  # def make_game_copy(self):
-  #   # alku = time.time()
-  #   new_fillapix = FillaPix(self.xsize,self.ysize,self.table)
-    
-  #   new_fillapix.make_boxes()
-  #   new_fillapix.make_numbers()
-    
-  #   new_fillapix.fill_table(self.make_snapshot())
-  #   new_fillapix.solve_step_2()
-  #   # loppu = time.time()
-  #   # print(f"pelin kopiointiin kului aikaa {loppu-alku}")
-  #   return new_fillapix
-
-  def solve_step_3(self,snap,k,muokatut,todo):
+  def solve_step_3(self,snap,k,muokatut):
     # alku1 = time.time()
     self.fill_table(snap)
-    self.numbers_todo = todo
-    # self.solve_step_2()
+    # self.numbers_todo = todo
+    self.solve_step_2()
+    if self.check_table() is False:
+      # print(f"ei onnistunut. numero {muokatut[-1]} aiheutti ongelman")
+      muokatut = muokatut[:-1]
+      # self.fill_table(snap)
+      return False
     if self.table_ready() is True:
       print('VALMIS')
+      print('VALMIS')
+      print('VALMIS')
+      print('------------------------------------------------------------')
+      print('------------------------------------------------------------')
       print('------------------------------------------------------------')
       self.print_table()
+      self.step3_loppu = time.time()
+      print(f"kolmos vaihe kesti {self.step3_loppu-self.step3_alku}")
+      exit()
       return self.table
-    
-    # if self.check_table() is False:
-    #   print(f"ei onnistunut. numero {muokatut[-1]} aiheutti ongelman")
-    #   muokatut = muokatut[:-1]
-    #   # self.fill_table(snap)
-    #   return False
-    if len(self.numbers_todo) == 0:
-      print('todo lista tyhjä')
-      print(f"muokatut pituus {len(muokatut)} kierros {k}")
-      return 
     else:
-      # loppu1 = time.time()
-      # print(f"step3 aloitus kesti {loppu1-alku1}")
-      # print(f"numeroita todo listalla {len(self.numbers_todo)}")
       if len(self.numbers_todo) != 0:
         num_to_try = self.numbers_todo[0]
-        self.numbers_todo.pop(0)
+        # self.numbers_todo.pop(0)
         # print('UUSI')
         uudet_snap = []
         uudet_muokatut = []
         none_laatikot = []
         mustat = 0
-        # print(num_to_try.n,num_to_try.x,num_to_try.y)
-        # alku2 = time.time()
         for i in range(0,len(num_to_try.number_boxes)):
           if num_to_try.number_boxes[i].value == None:
             none_laatikot.append(i)
           elif num_to_try.number_boxes[i].value == 1:
             mustat += 1
         possible_fills = list(combinations(none_laatikot,(num_to_try.n-mustat)))
-        # loppu2 = time.time()
-        # print(f"kombinaatiot aika {loppu2-alku2}")
-        # alku3 = time.time()
         for fill in possible_fills:
           for fill_box in fill:
             num_to_try.number_boxes[fill_box].value = 1
@@ -353,31 +340,38 @@ class FillaPix:
             # print(num_to_try.x,num_to_try.y)
           for fill_box in fill:
             num_to_try.number_boxes[fill_box].value = None
-        # loppu3 = time.time()
-        # print(f"Täyttö kesti {loppu3-alku3}")
         if len(uudet_snap) > 0:
-          # print(f"Kierros {k} uusia snap {len(uudet_snap)}")
-          # print('')
-          # print(f"Muokatut numero {muokatut}")
-          print(f"Muokatut numerot loppu {muokatut[:10]} kierros {k}")
-          # print(f"kierros {k}")
-          todo2 = copy.copy(self.numbers_todo)
+          # print(f"Muokatut numerot {muokatut} kierros {k} numeroita vielä {len(self.numbers_todo)}")
           for uu in range(len(uudet_snap)):
             muokatut_laatikot = muokatut.copy()
             aa = list(uudet_muokatut[uu])
             aa.append(uu+1)
             aa.append(len(uudet_snap))
+            # todo2 = copy.copy(self.numbers_todo)
             muokatut_laatikot.append(tuple(aa))
             
-            self.solve_step_3(uudet_snap[uu],k+1,muokatut_laatikot,todo2)
-        else: 
-          pass
-
+            self.solve_step_3(uudet_snap[uu],k+1,muokatut_laatikot)
+        else:
+          # print('ei uusia muokattavia')
           return False
       else:
-        return 
+        print('!!! todo lista tyhjä !!!')
+        return False
     
-
+  def main(self):
+    self.make_boxes()
+    self.make_numbers()
+    # peli4.print_table()
+    self.solve_step_1()
+    print('vaihe 1')
+    self.print_table()
+    self.solve_step_2()
+    print('vaihe 2')
+    self.print_table()
+    self.check_table()
+    self.step3_alku = time.time()
+    self.solve_step_3(self.make_snapshot(),0,[()])
+    
 class Box(FillaPix):
   def __init__(self,x,y):
     self.x = x
@@ -532,33 +526,39 @@ if __name__ == "__main__":
   # print(f"kolmos vaihe kesti {loppu-alku}")
   # # peli3.print_table()
 
-  peli4 = FillaPix(20,20,[('4;;;6;;;;6;;;4;;4;;;1;;;3;'),
-(';;9;;8;;9;8;;;;;;2;2;;6;;;3'),
-('6;;;;;7;7;;;2;;1;2;;2;4;6;8;;4'),
-('5;;;;3;;;;3;;;;0;;;;;;7;'),
-(';;1;;;;;;;0;;;;;;;5;5;;4'),
-(';;;;;0;;;1;;;;;;;4;;6;;4'),
-(';0;;;;3;;;3;;2;;2;;1;3;4;;;'),
-(';;;6;;;;;3;4;;;5;;;;6;;;'),
-('0;;;8;;;3;;4;;6;8;6;;;;;8;;3'),
-(';;;;6;4;;2;3;;;;;7;6;;7;9;;'),
-(';;;;;5;;;;5;;6;7;;;;5;7;;4'),
-(';7;8;;8;;;;;;4;;;6;;;;6;;'),
-(';;;7;;;7;;;5;;;;;;1;;;6;'),
-('5;;;;;;;;3;3;;6;;;5;;;;;'),
-(';;7;;7;;;;5;;;;7;;3;;3;;;5'),
-(';5;;7;;;;1;;1;;;7;;;;;;;'),
-(';5;;;;4;5;;;;;;;;1;;2;5;;3'),
-(';7;9;;8;;;1;;;;;7;;;6;;;5;'),
-(';5;;7;;;;;;5;;;;;3;;;;;3'),
-(';;;;6;5;;;4;5;5;;;3;;;;3;;')])
-peli4.make_boxes()
-peli4.make_numbers()
-# peli4.print_table()
-peli4.solve_step_1()
-print('vaihe 1')
-peli4.print_table()
-peli4.solve_step_2()
-print('vaihe 2')
-peli4.print_table()
-peli4.check_table()
+  peli4 = FillaPix(20,20,['4;;;6;;;;6;;;4;;4;;;1;;;3;',
+';;9;;8;;9;8;;;;;;2;2;;6;;;3',
+'6;;;;;7;7;;;2;;1;2;;2;4;6;8;;4',
+'5;;;;3;;;;3;;;;0;;;;;;7;',
+';;1;;;;;;;0;;;;;;;5;5;;4',
+';;;;;0;;;1;;;;;;;4;;6;;4',
+';0;;;;3;;;3;;2;;2;;1;3;4;;;',
+';;;6;;;;;3;4;;;5;;;;6;;;',
+'0;;;8;;;3;;4;;6;8;6;;;;;8;;3',
+';;;;6;4;;2;3;;;;;7;6;;7;9;;',
+';;;;;5;;;;5;;6;7;;;;5;7;;4',
+';7;8;;8;;;;;;4;;;6;;;;6;;',
+';;;7;;;7;;;5;;;;;;1;;;6;',
+'5;;;;;;;;3;3;;6;;;5;;;;;',
+';;7;;7;;;;5;;;;7;;3;;3;;;5',
+';5;;7;;;;1;;1;;;7;;;;;;;',
+';5;;;;4;5;;;;;;;;1;;2;5;;3',
+';7;9;;8;;;1;;;;;7;;;6;;;5;',
+';5;;7;;;;;;5;;;;;3;;;;;3',
+';;;;6;5;;;4;5;5;;;3;;;;3;;'])
+peli4.main()
+  # peli4.make_boxes()
+  # peli4.make_numbers()
+  # # peli4.print_table()
+  # peli4.solve_step_1()
+  # print('vaihe 1')
+  # peli4.print_table()
+  # peli4.solve_step_2()
+  # print('vaihe 2')
+  # peli4.print_table()
+  # peli4.check_table()
+  # alku = time.time()
+  # peli4.solve_step_3(peli4.make_snapshot(),0,[()])
+  # loppu = time.time()
+  # print(f"kolmos vaihe kesti {loppu-alku}")
+  # peli4.print_table()
