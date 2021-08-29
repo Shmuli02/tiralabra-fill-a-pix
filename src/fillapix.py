@@ -251,7 +251,6 @@ class FillaPix:
     if self.check_table() is False:
       # print(f"ei onnistunut. numero {muokatut[-1]} aiheutti ongelman")
       muokatut = muokatut[:-1]
-      # self.fill_table(snap)
       return False
     if self.table_ready() is True:
       print('vaihe 3')
@@ -272,7 +271,7 @@ class FillaPix:
             none_laatikot.append(i)
           elif num_to_try.number_boxes[i].value == 1:
             mustat += 1
-        possible_fills = list(combinations(none_laatikot,(num_to_try.n-mustat)))
+        possible_fills = list(combinations(none_laatikot,(num_to_try.n-mustat))) #millä tavoilla numero voidaan täyttää
         for fill in possible_fills:
           for fill_box in fill:
             num_to_try.number_boxes[fill_box].value = 1
