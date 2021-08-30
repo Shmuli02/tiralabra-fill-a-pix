@@ -2,30 +2,30 @@ from turtle import Turtle
 
 class FillaPixPainter:
     def __init__(self,size,table):
-        self.t = Turtle()
+        self.turtle = Turtle()
         self.side = 10
-        self.t.width(1)
+        self.turtle.width(1)
         self.numSquares = size
         self.table = table
-        
+
 
     def drawSquare(self,color):
-        self.t.color(color)
-        self.t.begin_fill()
-        self.t.speed(0)
-        for i in range(4):
-            self.t.forward(self.side)
-            self.t.right(90)
-        self.t.end_fill()
-        self.t.forward(self.side)
+        self.turtle.color(color)
+        self.turtle.begin_fill()
+        self.turtle.speed(0)
+        for _ in range(4):
+            self.turtle.forward(self.side)
+            self.turtle.right(90)
+        self.turtle.end_fill()
+        self.turtle.forward(self.side)
 
     def nextRow(self):
-        self.t.penup()
-        self.t.backward(self.numSquares*self.side)
-        self.t.left(90)
-        self.t.forward(self.side)
-        self.t.right(90)
-        self.t.pendown()
+        self.turtle.penup()
+        self.turtle.backward(self.numSquares*self.side)
+        self.turtle.left(90)
+        self.turtle.forward(self.side)
+        self.turtle.right(90)
+        self.turtle.pendown()
 
     def drawRow(self,colors,numbers):
         for j in range(len(colors)):
@@ -33,7 +33,7 @@ class FillaPixPainter:
                 self.drawSquare(colors[j])
         self.nextRow()
 
-    
+
     def draw(self):
         all_numbers = [1 for i in range(self.numSquares)]
         all_colors = self.table
@@ -44,25 +44,6 @@ class FillaPixPainter:
                     all_colors[i][j]="gray"
                 else:
                     all_colors[i][j]="black"
-                    
+
         for i in range(len(all_numbers)):
             self.drawRow(all_colors[i],all_numbers)
-
-if __name__ == "__main__":
-    a = FillaPixPainter(15,[
-      [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
-      [0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
-      [1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0],
-      [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-      [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
-      [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-      [1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-      [1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-      [1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0],
-      [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0],
-      [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0],
-      [0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]])
-    a.draw()
