@@ -8,10 +8,6 @@ komentorivikäyttöliittymä on tämän näköinen:
 
 ![Komentorivi](img/komentorivi.PNG)
 
-Komentoriville tulostuu jokaisen vaiheen jälkeen sen hetkinen tianne.
-1 tarkoittaa mustaa ruutua
-0 tarkoittaa valkoista ruutua 
-ja None tarkoitta että ei vielä tiedetä onko musta vai valkoinen
 
 ## Ratkaisun toteutus
 Pelin ratkaiseminen on jaettu kolmeen eri vaiheeseen.
@@ -30,7 +26,7 @@ Numeron täytyy täyttää jokin seuraavista ehdoista:
 - Mustia on oikea määrä -> täytetään muut valkoisilla
 - Valkoisia on oikea määrä (ruutujen määrä - numero) -> täytetään muut ruudun mustilla
 
-Numeroita käydään niin pitkään läpi kun on mahdollista täyttää.
+Numeroita käydään niin pitkään kun mahdollisia täyttöjä löytyy.
 
 ![step2](img/fill-a-pix-step2.PNG)
 ![step2_2](img/fill-a-pix-step2_2.PNG)
@@ -45,12 +41,70 @@ Jos ratkaisu on kesken niin suoritetaan vaihe 3.
 
 Vaihe 3 valitaaan aluksi yksi numero. Sitten tutkitaan millä tavoin numeroi voidaan täyttää.
 Ne vaihtoehdot jotka ovat mahdollisia eli eivät ole ristiriidassa niin niille suoritetaan vaihe 2 uudelleen.
-Vaiheen 2 uudelleen suorittamisella pyritään täyttämään ruudukkoa. Tämän jälkeen tarkistetaan, että pelissä ei ole syntynyt ristiriitoja. Jos peli on valmis niin tulos palautetaan muuten suoritetaan 3. vaihe uudelleen
+Vaiheen 2 uudelleen suorittamisella pyritään täyttämään ruudukkoa. Tämän jälkeen tarkistetaan, ettei peliin ole syntynyt ristiriitoja. Jos peli on valmis niin tulos palautetaan muuten suoritetaan 3. vaihe uudelleen
+
+Viimeistään 3. vaiheen jälkeen tulos on valmis.
+
+## Tulostus
 
 
 
+Ohjelmassa on kolme eri laista vastauksen tulostamis vaihtoehtoa.
+Ensimmäinen on komentoriville tuleva tulos.
+Komentoriville tulostuu jokaisen vaiheen jälkeen sen hetkinen tianne.
+1 tarkoittaa mustaa ruutua
+0 tarkoittaa valkoista ruutua 
+ja None tarkoitta että ei vielä tiedetä onko musta vai valkoinen
 
-Esimerkki pelejä:
+Tulostun on tämän tyylinen:
+```
+vaihe 1
+[0, 0, None, None, None, None, None, None, None, None, None, None, None, None, None]
+[0, 0, None, None, None, None, None, None, None, None, None, None, None, None, None]
+[None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+[None, None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None]
+[None, None, None, None, None, 0, 0, 0, 0, 0, 0, None, None, None, None]
+[None, None, None, None, None, 0, 0, 0, 0, 0, 0, None, None, None, None]
+[None, None, None, None, None, 0, 0, 0, 0, None, None, None, None, None, None]
+[None, None, None, None, None, 0, 0, 0, 0, None, None, None, None, None, None]
+[None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0]
+[None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0]
+[None, None, None, None, None, None, None, None, None, None, None, 0, 0, 0, 0]
+[None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+[None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+[None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None]
+[None, None, None, None, None, None, None, 0, 0, 0, None, None, None, None, None]
+vaihe 2
+[0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
+[0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1]
+[1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1]
+[1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0]
+[0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]
+[0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0]
+[1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+[1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+[1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0]
+[1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]
+[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+[1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0]
+[0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0]
+[0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0]
+[0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]
+Ratkaisu oikein
+```
+Komentorivitulostuksesta on vaikeaa saada selvää, joten tämän takia on tehty kaksi erilaista tapaa kuvata tulosta.
+
+
+
+Ensimmäinen visuaalinen vaihtoehto on pythonin turtlella tehty tulostus.
+Tämä on hidas vaihtoehto, koska turtle tulostaa yhden kuution kerrallaa.
+![turtle](img/turtle.PNG)
+
+Toinen visuaalinen vaihtoehto on excel.
+Ohjelmaan on luoto excelin tekijä joka sisältää valmiiksi luodun makron. Makro muutta ruutujen kokoa jotta ruudun olisivat neliön muotoisia sekä automaattisesti täyttää mustat ruudun. Tämä vaihtoehto toimii ainoastaan tietokoneessa johon on asennettu excel.
+
+
+## Esimerkki pelejä
 
 Basic 15x15
 
@@ -98,33 +152,7 @@ Vaihe 2:
 ![Big_step_2](img/big_step_2.PNG)
 
 
-## Tulostus
 
-Ohjelmassa on kolme eri laista vastauksen tulostamis tapaa.
-Ensimmäinen on komentoriville tuleva tulos joka on tämän näköinen
-```
-[0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
-[0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1]
-[1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1]
-[1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0]
-[0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]
-[0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0]
-[1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-[1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
-[1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0]
-[1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]
-[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
-[1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0]
-[0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0]
-[0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0]
-[0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]
-```
-toinen vaihtoehto on pythonin turtlella tehty tulostus.
-Tämä on hidas vaihtoehto, koska turtle tulostaa yhden kuution kerrallaa.
-![turtle](img/turtle.PNG)
-
-Ja kolmas vaihtoehto on excel.
-Ohjelmaan on luoto excelin tekijä joka sisältää valmiiksi luodun makron. Makro muutta ruutujen kokoa jotta ruudun olisivat neliön muotoisia sekä automaattisesti täyttää mustat ruudun. Tämä vaihtoehto toimii ainoastaan tietokoneessa johon on asennettu excel.
 
 
 
