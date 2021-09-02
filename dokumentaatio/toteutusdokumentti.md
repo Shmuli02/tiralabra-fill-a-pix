@@ -109,9 +109,11 @@ Ohjelmaan on luoto excelin tekijä joka sisältää valmiiksi luodun makron. Mak
 Basic 15x15
 
 Vaihe 1:
+
 ![Basic_step_1](img/Basic-15-15-step_1.PNG)
 
 Vaihe 2:
+
 ![Basic_step_2](img/Basic-15-15-step_2.PNG)
 
 
@@ -131,8 +133,8 @@ Toisen vaiheen jälkeen ratkaisu on näin pitkällä
 ![Advance_step_2](img/Advanced-20x20-step2.PNG)
 
 Vaihe 3:
-
 Ja tulos on tällainen
+
 ![Advanced_step_3](img/Advanced-20x20-step3.PNG)
 
 Vaiheessa 3. on valittu seuraavat numerot joita sitten ollaan testattu.
