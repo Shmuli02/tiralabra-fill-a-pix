@@ -175,9 +175,19 @@ class FillaPix:
                 if self.boxes[i][j].value is None:
                     # print('ratkaisu kesken')
                     return False
-        print('ratkaisu valmis')
-        return True
+        if len(self.numbers_todo) == 0:
+            if self.table_ready2() is True:
+                return True
+        return False
 
+    def table_ready2(self):
+        self.numbers_todo = self.numbers_todo_main
+        self.solve_step_2()
+        if len(self.numbers_todo) == 0:
+            print('Ratkaisu oikein')
+            return True
+        else:
+            return False
 
     def check_table(self):
         errors = []
@@ -300,11 +310,13 @@ class FillaPix:
         print('vaihe 1')
         self.print_table()
         self.solve_step_2()
+        self.numbers_todo_main = self.numbers_todo
         print('vaihe 2')
         self.print_table()
         if self.table_ready() is True:
             loppu = time.time()
             print(f"Yhteensä ratkaisu kesti {loppu-alku}")
+            self.result = self.make_snapshot()
         else:
             step3_alku = time.time()
             self.solve_step_3(self.make_snapshot(),0,[()])
@@ -312,6 +324,7 @@ class FillaPix:
             print(f"kolmos vaihe kesti {step3_loppu-step3_alku}")
             loppu = time.time()
             print(f"Yhteensä ratkaisu kesti {loppu-alku}")
+        return self.result
 
 class Box(FillaPix):
     def __init__(self,x,y):
