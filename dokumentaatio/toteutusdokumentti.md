@@ -10,7 +10,7 @@ Pelin ratkaiseminen on jaettu kolmeen eri vaiheeseen.
 Vaihe 1:
 Ensin täytetään mustalla numeort 9 sekä tyhjällä numerot 0.
 
-![step1](dokumentaatio/img/fill-a-pix-step1.PNG)
+![step1](img/fill-a-pix-step1.PNG)
 
 Vaihe 2:
 Seuraavaksi käsitellään muut numerot 1-8.
