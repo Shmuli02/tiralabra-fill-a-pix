@@ -133,6 +133,7 @@ Toisen vaiheen jälkeen ratkaisu on näin pitkällä
 ![Advance_step_2](img/Advanced-20x20-step2.PNG)
 
 Vaihe 3:
+
 Ja tulos on tällainen
 
 ![Advanced_step_3](img/Advanced-20x20-step3.PNG)
@@ -161,3 +162,4 @@ Vaihe 2:
 
 Lähteet:
 - https://www.conceptispuzzles.com/index.aspx?uri=puzzle/fill-a-pix/techniques
+- https://www.conceptispuzzles.com/index.aspx?uri=puzzle/fill-a-pix
