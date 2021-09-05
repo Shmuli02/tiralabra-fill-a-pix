@@ -29,8 +29,7 @@ class FillaPixPainter:
 
     def drawRow(self,colors,numbers):
         for j in range(len(colors)):
-            for k in range(numbers[j]):
-                self.drawSquare(colors[j])
+            self.drawSquare(colors[j])
         self.nextRow()
 
 
