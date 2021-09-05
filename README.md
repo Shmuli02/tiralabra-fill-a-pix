@@ -7,7 +7,7 @@
 - [Käyttöohje](dokumentaatio/käyttöohje.md)
 - [Määrittelydokumentaatio](dokumentaatio/maarittelydokumentti.md)
 - [Toteutusdokumentti](dokumentaatio/toteutusdokumentti.md)
-- [Testausdokumentti](dokumentaatio/testausdokumentti)
+- [Testausdokumentti](dokumentaatio/testausdokumentti.md)
 
 ## Viikkoraportit
 - [Viikkoraportti_1](dokumentaatio/viikkoraportit/viikkoraportti-1.md)
