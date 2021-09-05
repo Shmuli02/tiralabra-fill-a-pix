@@ -26,7 +26,7 @@ while True:
 
         try:
             file_url = mypath + '/' + onlyfiles[int(open_file_n)]
-            file = open(file_url,"r")
+            file = open(file_url, encoding='utf-8-sig')
             game_data = []
             for line in file:
                 line = line.strip('\ufeff')
@@ -42,11 +42,17 @@ while True:
             result = game.main()
             printer_result_turtle = input('Tulostetaanko tulos (turtle) avulla? k/e: ')
             if printer_result_turtle == 'k':
-                printer = FillaPixPainter(game_x,result)
-                printer.draw()
+                try:
+                    printer = FillaPixPainter(game_x,result)
+                    printer.draw()
+                except:
+                    print('Ongelma')
             printer_result_excel = input('Tulostetaanko tulos (excel) avulla? k/e: ')
             if printer_result_excel == 'k':
-                to_excel = FillaPixExcel(onlyfiles[int(open_file_n)],result)
-                to_excel.to_excel()
+                try:
+                    to_excel = FillaPixExcel(onlyfiles[int(open_file_n)],result)
+                    to_excel.to_excel()
+                except:
+                    print('Ongelma')
         except IndexError:
             print('Väärä syöte')

@@ -1,3 +1,3 @@
 [run]
 source = src
-omit = src/**/__init__.py,src/tests/**,src/fill_a_pix_printer.py
+omit = src/**/__init__.py,src/tests/**,src/fillapixprinter.py,src/solver.py,src/result_to_excel.py
