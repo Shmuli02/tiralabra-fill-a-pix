@@ -54,5 +54,6 @@ while True:
                     to_excel.to_excel()
                 except:
                     print('Ongelma')
-        except IndexError:
+        except:
             print('Väärä syöte')
+        
